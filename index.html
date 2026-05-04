@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Cannes Lions 2026 — Travel Tracker</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#080808; --card:#111; --card2:#181818; --card3:#1e1e1e;
+  --b1:#222; --b2:#2e2e2e; --b3:#3a3a3a;
+  --w:#fff; --w90:#e8e8e8; --w70:#aaa; --w40:#666; --w20:#3a3a3a;
+  --grn:#4ade80; --red:#f87171; --amber:#fbbf24;
+  --hv:'Helvetica Neue',Helvetica,Arial,sans-serif;
+  --mo:ui-monospace,'SF Mono','Courier New',monospace;
+}
+html{font-size:16px}
+body{font-family:var(--hv);background:var(--bg);color:var(--w);-webkit-font-smoothing:antialiased;line-height:1.5}
+a{text-decoration:none;color:inherit}
+button{font-family:var(--hv);cursor:pointer}
+.page{max-width:1100px;margin:0 auto;padding:0 40px 100px}
+
+/* NAV */
+nav{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:16px 0;border-bottom:1px solid var(--b1);gap:12px;flex-wrap:wrap;
+}
+.nav-brand{display:flex;align-items:center;gap:10px}
+.nav-icon{width:30px;height:30px;background:var(--w);display:grid;place-items:center;border-radius:6px;flex-shrink:0}
+.nav-icon svg{width:14px;height:14px}
+.nav-title{font-size:14px;font-weight:700}
+.nav-title span{color:var(--w40);font-weight:400}
+.nav-right{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.pill{
+  display:flex;align-items:center;gap:7px;
+  background:var(--card);border:1px solid var(--b1);
+  padding:8px 14px;border-radius:100px;
+  font-family:var(--mo);font-size:10px;color:var(--w70);letter-spacing:1px;
+}
+.ldot{width:6px;height:6px;border-radius:50%;background:var(--w20);transition:background .3s;flex-shrink:0}
+.ldot.on{background:var(--grn);animation:pulse 2s ease infinite}
+.ldot.busy{background:var(--amber);animation:pulse .8s ease infinite}
+.ldot.err{background:var(--red)}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.3;transform:scale(.7)}}
+.btn{font-family:var(--hv);font-size:12px;font-weight:700;border:none;padding:10px 18px;border-radius:8px;cursor:pointer;display:inline-flex;align-items:center;gap:7px;transition:opacity .15s}
+.btn:hover{opacity:.85}
+.btn:disabled{opacity:.3;cursor:not-allowed}
+.btn-w{background:var(--w);color:var(--bg)}
+.btn-ghost{background:transparent;color:var(--w40);border:1px solid var(--b2);font-size:11px;padding:9px 14px}
+.btn-ghost:hover{color:var(--w70);border-color:var(--b3)}
+.btn-claude{background:linear-gradient(135deg,#7c3aed,#4f46e5);color:var(--w);font-size:12px}
+.ico{display:inline-block}
+.spin .ico{animation:spin .7s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* HERO */
+.hero{padding:48px 0 36px;border-bottom:1px solid var(--b1)}
+.hero-tag{font-family:var(--mo);font-size:10px;color:var(--w40);letter-spacing:3px;text-transform:uppercase;margin-bottom:20px;display:flex;align-items:center;gap:10px}
+.hero-tag::before{content:'';width:20px;height:1px;background:var(--b3)}
+.hero-h{font-size:clamp(52px,8vw,96px);font-weight:900;letter-spacing:-3px;line-height:.9;text-transform:uppercase;margin-bottom:36px}
+.hero-h .dim{color:var(--w20)}
+.hero-stats{display:flex;gap:0;flex-wrap:wrap;border-top:1px solid var(--b1);padding-top:20px}
+.hs{flex:1;min-width:140px;padding:0 24px 0 0;border-right:1px solid var(--b1);margin-right:24px}
+.hs:last-child{border-right:none;margin-right:0}
+.hs-l{font-family:var(--mo);font-size:9px;color:var(--w40);letter-spacing:2px;text-transform:uppercase;margin-bottom:6px}
+.hs-v{font-size:14px;font-weight:700;color:var(--w90)}
+.hs-v.mono{font-family:var(--mo);font-size:12px}
+
+/* ANCHOR */
+.anchor{
+  display:flex;align-items:center;gap:14px;
+  background:var(--card);border:1px solid var(--b2);border-left:3px solid var(--w);
+  padding:16px 22px;margin:28px 0;border-radius:0 10px 10px 0;flex-wrap:wrap;
+}
+.anchor-icon{font-size:22px;flex-shrink:0}
+.anchor-body{flex:1}
+.anchor-title{font-size:14px;font-weight:700;margin-bottom:3px}
+.anchor-sub{font-family:var(--mo);font-size:11px;color:var(--w70)}
+.anchor-badge{font-family:var(--mo);font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;background:var(--w);color:var(--bg);padding:4px 10px;border-radius:4px;white-space:nowrap}
+
+/* SECTION */
+.section-hdr{display:flex;align-items:baseline;gap:12px;padding:36px 0 20px;border-top:1px solid var(--b1);margin-top:8px}
+.sh-n{font-family:var(--mo);font-size:10px;color:var(--w20);letter-spacing:2px}
+.sh-t{font-size:19px;font-weight:800;letter-spacing:-.3px}
+.sh-s{font-size:12px;color:var(--w40);font-family:var(--mo);margin-left:auto;text-align:right}
+
+/* FLOW STEPS */
+.flow{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:28px;
+}
+.flow-step{
+  background:var(--card);border:1px solid var(--b1);border-radius:10px;
+  padding:20px;display:flex;flex-direction:column;gap:10px;
+  position:relative;transition:border-color .2s;
+}
+.flow-step.active{border-color:var(--amber)}
+.flow-step.done{border-color:var(--grn)}
+.flow-step.error{border-color:var(--red)}
+.fs-num{font-family:var(--mo);font-size:11px;color:var(--w40);letter-spacing:2px}
+.fs-title{font-size:14px;font-weight:700}
+.fs-desc{font-size:12px;color:var(--w70);line-height:1.5}
+.fs-status{
+  display:flex;align-items:center;gap:7px;
+  font-family:var(--mo);font-size:10px;color:var(--w40);letter-spacing:1px;
+  margin-top:auto;padding-top:8px;border-top:1px solid var(--b1);
+}
+.fs-dot{width:6px;height:6px;border-radius:50%;background:var(--w20);flex-shrink:0}
+.flow-step.active .fs-dot{background:var(--amber);animation:pulse .8s ease infinite}
+.flow-step.done .fs-dot{background:var(--grn)}
+.flow-step.error .fs-dot{background:var(--red)}
+
+/* BIG ACTION */
+.action-wrap{
+  display:flex;align-items:center;gap:16px;
+  background:var(--card2);border:1px solid var(--b2);border-radius:10px;
+  padding:20px 24px;margin-bottom:8px;flex-wrap:wrap;
+}
+.aw-text{flex:1}
+.aw-title{font-size:15px;font-weight:700;margin-bottom:4px}
+.aw-sub{font-size:12px;color:var(--w70);font-family:var(--mo)}
+.aw-sub span{color:var(--grn)}
+
+/* PROGRESS LOG */
+.progress-log{
+  background:var(--card);border:1px solid var(--b1);border-radius:10px;
+  padding:16px 20px;margin-bottom:28px;
+  display:none;max-height:180px;overflow-y:auto;
+}
+.progress-log.show{display:block}
+.pl-line{
+  font-family:var(--mo);font-size:11px;color:var(--w70);
+  padding:3px 0;border-bottom:1px solid var(--b1);letter-spacing:.5px;
+  display:flex;align-items:center;gap:8px;
+}
+.pl-line:last-child{border-bottom:none;color:var(--w90)}
+.pl-line.err{color:var(--red)}
+.pl-line.ok{color:var(--grn)}
+.pl-time{color:var(--w40);min-width:55px;font-size:10px}
+
+/* STRATEGY CARDS */
+.strategies-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:8px;
+}
+.strat-card{
+  background:var(--card);border:1px solid var(--b1);border-radius:10px;
+  display:flex;flex-direction:column;overflow:hidden;
+  transition:border-color .2s,transform .15s;
+}
+.strat-card:hover{border-color:var(--b3);transform:translateY(-1px)}
+.strat-card.active{border-color:var(--w);border-width:2px}
+
+.sc-head{padding:18px 18px 14px;border-bottom:1px solid var(--b1)}
+.sc-num{font-family:var(--mo);font-size:9px;color:var(--w40);letter-spacing:2px;text-transform:uppercase;margin-bottom:8px}
+.sc-name{font-size:17px;font-weight:800;letter-spacing:-.3px;margin-bottom:4px}
+.sc-sub{font-size:12px;color:var(--w70);line-height:1.5;margin-bottom:12px}
+.sc-just{font-size:12px;color:var(--w70);font-style:italic;line-height:1.6;margin-bottom:12px;padding:10px 12px;background:var(--card2);border-radius:6px;border-left:2px solid var(--b3)}
+.sc-tags{display:flex;flex-wrap:wrap;gap:5px}
+.sc-tag{font-size:11px;color:var(--w70);background:var(--card2);border:1px solid var(--b1);padding:3px 8px;border-radius:100px}
+
+.sc-price{padding:16px 18px;background:var(--card2);border-bottom:1px solid var(--b1)}
+.scp-label{font-family:var(--mo);font-size:9px;color:var(--w40);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:8px}
+.scp-total{font-size:30px;font-weight:900;letter-spacing:-1.5px;line-height:1;font-variant-numeric:tabular-nums;margin-bottom:4px}
+.scp-total.budget{color:var(--grn)}
+.scp-note{font-size:11px;color:var(--w40);font-family:var(--mo);margin-bottom:14px}
+.scp-rows{display:flex;flex-direction:column;gap:8px}
+.scp-row{display:flex;justify-content:space-between;align-items:baseline}
+.scp-row-l{font-size:12px;color:var(--w70)}
+.scp-row-v{font-size:13px;font-weight:700;color:var(--w90);font-variant-numeric:tabular-nums}
+.scp-row-v.live{color:var(--grn)}
+
+.sc-foot{padding:14px 18px;margin-top:auto;display:flex;flex-direction:column;gap:8px}
+.sc-cta{
+  display:flex;align-items:center;justify-content:center;gap:7px;
+  width:100%;font-size:13px;font-weight:700;
+  background:var(--w);color:var(--bg);
+  border:none;padding:11px;border-radius:7px;cursor:pointer;transition:opacity .15s;
+}
+.sc-cta:hover{opacity:.85}
+.sc-detail-btn{
+  width:100%;font-size:12px;color:var(--w40);
+  background:transparent;border:1px solid var(--b1);
+  padding:9px;border-radius:7px;cursor:pointer;transition:all .15s;
+}
+.sc-detail-btn:hover{color:var(--w70);border-color:var(--b3)}
+
+/* DETAIL PANEL */
+.strat-detail{
+  display:none;background:var(--card);
+  border:2px solid var(--w);border-top:none;
+  border-radius:0 0 10px 10px;margin:-8px 0 14px;
+  animation:openDown .2s ease;
+}
+@keyframes openDown{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:none}}
+.strat-detail.open{display:block}
+.sd-top{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px 22px;border-bottom:1px solid var(--b1);background:var(--card2);
+}
+.sd-title{font-size:13px;font-weight:700;color:var(--w90)}
+.sd-close{font-size:12px;color:var(--w40);background:transparent;border:1px solid var(--b2);padding:5px 12px;border-radius:6px;cursor:pointer;transition:all .15s}
+.sd-close:hover{color:var(--w);border-color:var(--b3)}
+
+.sd-row{
+  display:grid;grid-template-columns:1fr auto auto;
+  align-items:center;gap:20px;
+  padding:16px 22px;border-bottom:1px solid var(--b1);
+}
+.sd-row:last-child{border-bottom:none}
+.sd-info{}
+.sd-icon{font-size:16px;margin-bottom:4px}
+.sd-name{font-size:14px;font-weight:600;color:var(--w90);margin-bottom:3px}
+.sd-meta{font-size:12px;color:var(--w70);line-height:1.5;font-family:var(--mo)}
+.sd-meta.live{color:var(--grn)}
+.sd-price{text-align:right;flex-shrink:0}
+.sd-val{font-size:17px;font-weight:800;font-variant-numeric:tabular-nums}
+.sd-val.live{color:var(--grn)}
+.sd-note{font-family:var(--mo);font-size:10px;color:var(--w40);margin-top:3px}
+.sd-link{flex-shrink:0}
+.sd-btn{
+  font-family:var(--mo);font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;
+  color:var(--w70);background:var(--card2);border:1px solid var(--b2);
+  padding:8px 12px;border-radius:6px;cursor:pointer;transition:all .15s;display:inline-block;
+  white-space:nowrap;
+}
+.sd-btn:hover{background:var(--w);color:var(--bg);border-color:var(--w)}
+
+/* ROTEIRO */
+.sd-roteiro{padding:16px 22px;border-top:1px solid var(--b1);background:var(--card2)}
+.sdr-title{font-family:var(--mo);font-size:9px;color:var(--w40);letter-spacing:2px;text-transform:uppercase;margin-bottom:10px}
+.sdr-day{
+  display:flex;gap:12px;padding:6px 0;border-bottom:1px solid var(--b1);font-size:12px;
+}
+.sdr-day:last-child{border-bottom:none}
+.sdr-d{font-family:var(--mo);font-size:10px;color:var(--w40);min-width:60px;flex-shrink:0;padding-top:1px}
+.sdr-e{color:var(--w90);line-height:1.5}
+.sdr-e.cannes{color:var(--grn);font-weight:700}
+
+/* RAW DATA TABLE */
+.raw-section{margin-top:32px}
+.ft-wrap{background:var(--card);border:1px solid var(--b1);border-radius:10px;overflow:hidden;margin-bottom:16px}
+.ft-label{padding:14px 20px;border-bottom:1px solid var(--b1);font-size:12px;font-weight:700;color:var(--w90);font-family:var(--mo);background:var(--card2);display:flex;align-items:center;gap:8px}
+.ft-col-hdr{display:grid;grid-template-columns:36px 100px 68px 68px 160px 1fr 130px 120px;padding:8px 20px;border-bottom:1px solid var(--b1);background:var(--card2);gap:0}
+.ft-col-hdr span{font-family:var(--mo);font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--w40)}
+.ft-col-hdr .r{text-align:right}
+.frow{
+  display:grid;grid-template-columns:36px 100px 68px 68px 160px 1fr 130px 120px;
+  align-items:center;min-height:60px;padding:0 20px;
+  border-bottom:1px solid var(--b1);text-decoration:none;color:var(--w);
+  cursor:pointer;transition:background .1s;position:relative;
+}
+.frow:last-child{border-bottom:none}
+.frow:hover{background:var(--card2)}
+.frow:hover .fr-cta{opacity:1}
+.frow.best{background:var(--card2)}
+.frow.best::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--w);border-radius:0 2px 2px 0}
+.frow.rec{background:rgba(74,222,128,.05)}
+.frow.rec::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--grn);border-radius:0 2px 2px 0}
+@keyframes rp{0%{background:rgba(74,222,128,.2)}100%{background:rgba(74,222,128,.05)}}
+.frow.rec{animation:rp .8s ease forwards}
+.fr-n{font-family:var(--mo);font-size:10px;color:var(--w20);padding-left:2px}
+.fr-date{}
+.fr-day{font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:.2px}
+.fr-d{font-family:var(--mo);font-size:9px;color:var(--w40);margin-top:2px;letter-spacing:1px}
+.fr-badge{display:inline-block;font-family:var(--mo);font-size:8px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:2px 5px;border-radius:3px;margin-top:3px}
+.fr-badge.best{background:var(--w);color:var(--bg)}
+.fr-badge.rec{background:var(--grn);color:#000}
+.fr-dep,.fr-arr{display:flex;flex-direction:column;gap:2px}
+.fr-t{font-size:15px;font-weight:800;letter-spacing:-.3px;font-variant-numeric:tabular-nums}
+.fr-iata{font-family:var(--mo);font-size:9px;color:var(--w40);letter-spacing:1px}
+.fr-al{font-size:13px;font-weight:700;color:var(--w90)}
+.fr-details{font-family:var(--mo);font-size:11px;color:var(--w40)}
+.fr-best{text-align:right;padding-right:8px}
+.fr-bl{font-family:var(--mo);font-size:8px;color:var(--w40);letter-spacing:1px;text-transform:uppercase;margin-bottom:3px}
+.fr-bv{font-size:13px;font-weight:700;color:var(--grn);font-variant-numeric:tabular-nums}
+.fr-price{text-align:right}
+.fr-pv{font-size:17px;font-weight:900;letter-spacing:-.5px;font-variant-numeric:tabular-nums}
+.fr-pv.best-p{color:var(--grn)}
+.fr-pv.high{color:var(--w70)}
+.fr-ps{font-family:var(--mo);font-size:9px;color:var(--w40);margin-top:3px}
+.fr-cta{position:absolute;right:20px;opacity:0;transition:opacity .15s;pointer-events:none}
+.frow:hover .fr-cta{pointer-events:auto}
+.fc{font-family:var(--mo);font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;background:var(--w);color:var(--bg);padding:7px 12px;border-radius:5px;display:inline-block}
+
+/* skeleton */
+.skel-wrap{background:var(--card)}
+.skel-row{display:grid;grid-template-columns:36px 100px 68px 68px 160px 1fr 130px 120px;align-items:center;min-height:60px;padding:0 20px;border-bottom:1px solid var(--b1);animation:sk 1.5s ease infinite}
+@keyframes sk{0%,100%{opacity:.15}50%{opacity:.45}}
+.sb{height:9px;background:var(--b2);border-radius:4px;margin:0 4px}
+.no-flights{padding:24px 20px;font-family:var(--mo);font-size:11px;color:var(--w40)}
+.no-flights.err{color:var(--red)}
+
+/* HISTORY */
+.hist-wrap{background:var(--card);border:1px solid var(--b1);border-radius:10px;overflow:hidden}
+.hist-top{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;border-bottom:1px solid var(--b1);background:var(--card2)}
+.hist-title{font-size:13px;font-weight:700}
+.hist-sub{font-size:11px;color:var(--w40);font-family:var(--mo)}
+.hist-cols{display:grid;grid-template-columns:70px 80px 96px 110px 115px 115px 105px 1fr;padding:8px 20px;border-bottom:1px solid var(--b1);gap:6px;background:var(--card2)}
+.hist-cols span{font-family:var(--mo);font-size:8px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--w40)}
+.hist-body{padding:0 20px}
+.hrow{display:grid;grid-template-columns:70px 80px 96px 110px 115px 115px 105px 1fr;align-items:center;min-height:38px;border-bottom:1px solid var(--b1);gap:6px;animation:sin .3s ease}
+.hrow:last-child{border-bottom:none}
+@keyframes sin{from{opacity:0;transform:translateX(-4px)}to{opacity:1;transform:none}}
+.hrow span{font-family:var(--mo);font-size:10px;letter-spacing:.3px}
+.ht{color:var(--w40);font-size:9px}.hr{font-weight:700;font-size:9px;letter-spacing:1px;text-transform:uppercase;color:var(--w70)}
+.hd{color:var(--w70)}.hp{color:var(--w40);text-decoration:line-through}.hn{font-weight:800;color:var(--w90)}
+.hc{font-weight:600;color:var(--w70)}.hdelta{font-weight:700}.htype{font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--w40)}
+.htype.rec{color:var(--grn)}
+.hist-empty{padding:20px;font-family:var(--mo);font-size:11px;color:var(--w40)}
+
+/* ALERT */
+.alert{display:none;align-items:center;gap:14px;padding:14px 20px;margin:0 0 24px;background:rgba(74,222,128,.07);border:1px solid rgba(74,222,128,.2);border-radius:10px;animation:ai .3s ease}
+@keyframes ai{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:none}}
+.alert.show{display:flex}
+.al-dot{width:7px;height:7px;border-radius:50%;background:var(--grn);flex-shrink:0;animation:pulse 1.5s ease infinite}
+.al-body{flex:1}
+.al-title{font-size:13px;font-weight:800;color:var(--grn);margin-bottom:2px}
+.al-sub{font-family:var(--mo);font-size:10px;color:var(--w70)}
+.al-price{font-size:22px;font-weight:900;letter-spacing:-1px;color:var(--grn);font-variant-numeric:tabular-nums;white-space:nowrap}
+.al-btn{font-family:var(--mo);font-size:9px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;background:var(--grn);color:#000;border:none;padding:9px 14px;border-radius:6px;cursor:pointer;white-space:nowrap}
+
+/* FOOTER */
+footer{border-top:1px solid var(--b1);margin-top:56px;padding-top:18px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
+.foot-l{font-family:var(--mo);font-size:9px;color:var(--w40);letter-spacing:1.5px;text-transform:uppercase}
+.foot-r{display:flex;gap:20px;flex-wrap:wrap}
+.foot-r a{font-size:12px;color:var(--w40);transition:color .15s}
+.foot-r a:hover{color:var(--w90)}
+
+/* RESPONSIVE */
+@media(max-width:860px){
+  .page{padding:0 18px 80px}
+  .hero-h{font-size:clamp(42px,11vw,78px);letter-spacing:-2px}
+  .flow,.strategies-grid{grid-template-columns:1fr}
+  .ft-col-hdr,.frow,.skel-row{grid-template-columns:94px 62px 62px 140px 1fr 110px}
+  .fr-n,.fr-cta,.fr-best{display:none}
+  .hist-cols,.hrow{grid-template-columns:62px 76px 94px 108px 108px}
+  .hc,.htype{display:none}
+  .sd-row{grid-template-columns:1fr auto}
+  .sd-link{display:none}
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+<!-- NAV -->
+<nav>
+  <div class="nav-brand">
+    <div class="nav-icon">
+      <svg viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="#080808" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+    <span class="nav-title">Travel Tracker <span>· Cannes Lions 2026</span></span>
+  </div>
+  <div class="nav-right">
+    <div class="pill"><div class="ldot" id="ldot"></div><span id="live-txt">Pronto</span></div>
+    <button class="btn btn-ghost" onclick="resetAll()">Limpar</button>
+    <button class="btn btn-ghost" id="hbtn" onclick="searchHotels()">🏨 Hotéis</button>
+    <button class="btn btn-w" id="rbtn" onclick="runFull()">
+      <span class="ico">↻</span><span id="rlbl">Buscar voo</span>
+    </button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-tag">SerpApi · Google Flights · Claude AI · Cannes Lions 2026</div>
+  <div class="hero-h">Travel<br><span class="dim">Tracker</span></div>
+  <div class="hero-stats">
+    <div class="hs"><div class="hs-l">Rota</div><div class="hs-v">GRU → CDG + variações</div></div>
+    <div class="hs"><div class="hs-l">Janela de busca</div><div class="hs-v">13–17 Jun ida · 25–28 Jun volta</div></div>
+    <div class="hs"><div class="hs-l">Dia fixo</div><div class="hs-v">24 Jun · Cannes Lions</div></div>
+    <div class="hs"><div class="hs-l">Status</div><div class="hs-v mono" id="hf-status">Aguardando busca</div></div>
+  </div>
+</div>
+
+<!-- ANCHOR -->
+<div class="anchor">
+  <div class="anchor-icon">🦁</div>
+  <div class="anchor-body">
+    <div class="anchor-title">Cannes Lions — Cerimônia de Premiação</div>
+    <div class="anchor-sub">24 de Junho de 2026 · Palais des Festivals et des Congrès · Cannes, França</div>
+  </div>
+  <div class="anchor-badge">Data Fixa</div>
+</div>
+
+<!-- ALERT -->
+<div class="alert" id="alert">
+  <div class="al-dot"></div>
+  <div class="al-body"><div class="al-title" id="al-title">Novo recorde!</div><div class="al-sub" id="al-sub"></div></div>
+  <div class="al-price" id="al-price"></div>
+  <a href="#" id="al-btn" target="_blank" class="al-btn">Reservar →</a>
+</div>
+
+<!-- FLOW -->
+<div class="section-hdr">
+  <span class="sh-n">01</span>
+  <span class="sh-t">Como funciona</span>
+</div>
+
+<div class="flow">
+  <div class="flow-step" id="fs-1">
+    <div class="fs-num">Passo 01</div>
+    <div class="fs-title">Busca todos os preços</div>
+    <div class="fs-desc">SerpApi busca round-trip GRU↔CDG e open jaw NCE→GRU em todas as datas disponíveis via Google Flights.</div>
+    <div class="fs-status"><div class="fs-dot"></div><span id="fs1-txt">Aguardando</span></div>
+  </div>
+  <div class="flow-step" id="fs-2">
+    <div class="fs-num">Passo 02</div>
+    <div class="fs-title">Claude analisa os dados</div>
+    <div class="fs-desc">Os preços brutos são enviados para o Claude, que compara todas as combinações e monta as 3 melhores estratégias.</div>
+    <div class="fs-status"><div class="fs-dot"></div><span id="fs2-txt">Aguardando passo 01</span></div>
+  </div>
+  <div class="flow-step" id="fs-3">
+    <div class="fs-num">Passo 03</div>
+    <div class="fs-title">Resultados personalizados</div>
+    <div class="fs-desc">Budget, Custo-Benefício e Quase Luxo — cada um com a melhor rota, datas e custo total real calculado.</div>
+    <div class="fs-status"><div class="fs-dot"></div><span id="fs3-txt">Aguardando análise</span></div>
+  </div>
+</div>
+
+<!-- ACTION -->
+<div class="action-wrap">
+  <div class="aw-text">
+    <div class="aw-title">Buscar preços reais agora e gerar as 3 melhores estratégias</div>
+    <div class="aw-sub">Usa SerpApi → Claude analisa → <span>3 planos com preços reais</span> · O site também atualiza <b>sozinho todo dia às 9h</b></div>
+  </div>
+  <button class="btn btn-claude" id="main-btn" onclick="runFull()">
+    <span class="ico">⚡</span><span id="main-lbl">Buscar voo + Analisar</span>
+  </button>
+</div>
+
+<div class="progress-log" id="plog"></div>
+
+<!-- STRATEGIES -->
+<div class="section-hdr">
+  <span class="sh-n">02</span>
+  <span class="sh-t">As 3 melhores estratégias</span>
+  <span class="sh-s" id="strat-note">Clique em "Buscar + Analisar" para gerar</span>
+</div>
+
+<div class="strategies-grid" id="strat-grid">
+  <!-- rendered by JS -->
+  <div id="strat-empty" style="grid-column:1/-1;padding:48px 0;text-align:center">
+    <div style="font-size:48px;margin-bottom:16px">⚡</div>
+    <div style="font-size:15px;font-weight:700;margin-bottom:8px">Claude vai montar as 3 melhores estratégias</div>
+    <div style="font-size:13px;color:var(--w40);font-family:var(--mo)">Clique em "Buscar + Analisar com Claude" acima</div>
+  </div>
+</div>
+
+<!-- DETAIL PANELS (rendered by JS) -->
+<div id="detail-panels"></div>
+
+<!-- RAW DATA -->
+<div class="section-hdr raw-section">
+  <span class="sh-n">03</span>
+  <span class="sh-t">Dados brutos de voos</span>
+  <span class="sh-s">Round-trip GRU↔CDG · Open jaw NCE→GRU</span>
+</div>
+
+<div class="ft-wrap">
+  <div class="ft-label">✈ Round-trip GRU ↔ CDG · Ida 13–17 Jun · Volta 28 Jun</div>
+  <div class="ft-col-hdr">
+    <span>Nº</span><span>Ida</span><span>Dep.</span><span>Cheg.</span>
+    <span>Companhia</span><span>Info</span><span class="r">Melhor visto</span><span class="r">Total</span>
+  </div>
+  <div id="tbl-rt"><div class="no-flights">Clique em "Buscar + Analisar" para carregar.</div></div>
+</div>
+
+<div class="ft-wrap">
+  <div class="ft-label">✈ NCE → GRU · Volta open jaw · 25–28 Jun 2026</div>
+  <div class="ft-col-hdr">
+    <span>Nº</span><span>Data</span><span>Dep.</span><span>Cheg.</span>
+    <span>Companhia</span><span>Info</span><span class="r">Melhor visto</span><span class="r">Preço agora</span>
+  </div>
+  <div id="tbl-oj"><div class="no-flights">Clique em "Buscar + Analisar" para carregar.</div></div>
+</div>
+
+<!-- HISTORY -->
+<div class="section-hdr">
+  <span class="sh-n">04</span>
+  <span class="sh-t">Histórico de recordes</span>
+  <span class="sh-s" id="hist-sub">0 eventos · salvo no browser</span>
+</div>
+<div class="hist-wrap">
+  <div class="hist-top">
+    <span class="hist-title">Log de variações de preço</span>
+    <span class="hist-sub">Alerta quando um preço bate o mínimo histórico</span>
+  </div>
+  <div class="hist-cols">
+    <span>Hora</span><span>Rota</span><span>Data</span>
+    <span>Antes</span><span>Agora</span><span>Combo</span><span>Delta</span><span>Tipo</span>
+  </div>
+  <div class="hist-body" id="hlist">
+    <div class="hist-empty" id="hempty">Nenhum recorde ainda. Aparece aqui quando um preço bater o mínimo histórico.</div>
+  </div>
+</div>
+
+<footer>
+  <div class="foot-l">Cannes Lions 2026 · Travel Tracker · SerpApi + Claude AI</div>
+  <div class="foot-r">
+    <a href="https://serpapi.com" target="_blank">SerpApi</a>
+    <a href="https://www.anthropic.com" target="_blank">Claude API</a>
+    <a href="https://www.kayak.com.br" target="_blank">Kayak</a>
+    <a href="https://www.booking.com" target="_blank">Booking</a>
+    <a href="https://www.sncf-connect.com" target="_blank">SNCF</a>
+  </div>
+</footer>
+
+</div>
+<script>
+// ── CONFIG ──────────────────────────────────────────────────────
+var LS_B='clf26_b_v6', LS_L='clf26_l_v6', LS_H='clf26_h_v2', LS_S='clf26_s_v1';
+var IDA_DATES=['2026-06-13','2026-06-14','2026-06-15','2026-06-16','2026-06-17'];
+var VOLTA_DATES=['2026-06-25','2026-06-26','2026-06-27','2026-06-28'];
+var DAYS={'2026-06-13':'Sáb','2026-06-14':'Dom','2026-06-15':'Seg','2026-06-16':'Ter','2026-06-17':'Qua','2026-06-25':'Qui','2026-06-26':'Sex','2026-06-27':'Sáb','2026-06-28':'Dom'};
+var AL={TP:'TAP Air Portugal',IB:'Iberia',UX:'Air Europa',AF:'Air France',LA:'LATAM',G3:'Gol',AA:'American Airlines',U2:'easyJet',VY:'Vueling',BA:'British Airways',LH:'Lufthansa',KL:'KLM'};
+var HOTEL_EST={paris:{hostel:650,mid:2100,luxury:5200},nice:{hostel:900,mid:2600,luxury:5000}};
+
+var $=function(id){return document.getElementById(id);};
+var fmtD=function(d){return d?d.slice(8)+'/'+d.slice(5,7):'—';};
+var fmtR=function(n){return 'R$\u00a0'+Math.round(n).toLocaleString('pt-BR');};
+var now8=function(){return new Date().toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit',second:'2-digit'});};
+var kURL=function(o,d,dt){return 'https://www.kayak.com.br/flights/'+o+'-'+d+'/'+dt+'?sort=price_a';};
+
+var bests=JSON.parse(localStorage.getItem(LS_B)||'{}');
+var evLog=JSON.parse(localStorage.getItem(LS_L)||'[]');
+var hotelData=JSON.parse(localStorage.getItem(LS_H)||'{}');
+var savedStrats=JSON.parse(localStorage.getItem(LS_S)||'null');
+var rawFlights={rt:[],oj:[]};
+
+var saveB=function(){try{localStorage.setItem(LS_B,JSON.stringify(bests));}catch(e){}};
+var saveL=function(){try{localStorage.setItem(LS_L,JSON.stringify(evLog.slice(0,60)));}catch(e){}};
+var saveH=function(){try{localStorage.setItem(LS_H,JSON.stringify(hotelData));}catch(e){}};
+var saveS=function(s){try{localStorage.setItem(LS_S,JSON.stringify(s));}catch(e){}};
+
+// ── UI HELPERS ──────────────────────────────────────────────────
+function setLive(s,m){
+  $('ldot').className='ldot'+(s==='on'?' on':s==='busy'?' busy':s==='err'?' err':'');
+  $('live-txt').textContent=m;
+}
+function setStep(n,s,txt){
+  var el=$('fs-'+n);
+  if(!el)return;
+  el.className='flow-step'+(s==='active'?' active':s==='done'?' done':s==='error'?' error':'');
+  $('fs'+n+'-txt').textContent=txt;
+}
+function log(msg,type){
+  var plog=$('plog');
+  plog.classList.add('show');
+  var div=document.createElement('div');
+  div.className='pl-line'+(type==='err'?' err':type==='ok'?' ok':'');
+  div.innerHTML='<span class="pl-time">'+now8()+'</span><span>'+msg+'</span>';
+  plog.appendChild(div);
+  plog.scrollTop=plog.scrollHeight;
+}
+function skel(id,n){
+  var el=$(id);
+  if(!el)return;
+  var W='36px 100px 68px 68px 160px 1fr 130px 120px';
+  var rows='';
+  for(var i=0;i<n;i++){
+    rows+='<div class="skel-row" style="grid-template-columns:'+W+'">';
+    [18,52,36,36,90,60,55,65].forEach(function(w,j){
+      rows+='<div><div class="sb" style="width:'+w+'px'+(j>=6?';margin-left:auto':'')+'"></div></div>';
+    });
+    rows+='</div>';
+  }
+  el.innerHTML='<div class="skel-wrap">'+rows+'</div>';
+}
+
+// ── CHECK RECORDS ───────────────────────────────────────────────
+function checkBests(rows,orig,dest){
+  var recs=[];
+  rows.forEach(function(r){
+    if(!r.price)return;
+    var k=orig+'-'+dest+'-'+r.date;
+    var prev=bests[k];
+    if(!prev||r.price<prev.price){
+      var e={t:now8(),route:orig+'→'+dest,date:DAYS[r.date]+' '+fmtD(r.date),
+        prev:prev?prev.price:null,now:r.price,delta:prev?r.price-prev.price:null,
+        currency:'BRL',type:prev?'record':'first',comboTotal:null};
+      evLog.unshift(e);
+      bests[k]=Object.assign({},r,{seenAt:new Date().toISOString()});
+      recs.push({key:k,r:r,entry:e});
+    }
+  });
+  return recs;
+}
+
+// ── RENDER RAW TABLES ───────────────────────────────────────────
+function renderRawTable(id,rows,orig,dest){
+  var el=$(id);
+  if(!el)return;
+  if(!rows.length){el.innerHTML='<div class="no-flights err">✗ Nenhum resultado. Verifique SERPAPI_KEY.</div>';return;}
+  var mn=Math.min.apply(null,rows.filter(function(r){return r.price>0;}).map(function(r){return r.price;}));
+  el.innerHTML=rows.map(function(r,i){
+    if(!r.price)return'<div class="frow" style="opacity:.4"><span class="fr-n">'+(i+1)+'</span><div class="fr-date"><div class="fr-day">'+(DAYS[r.date]||'?')+'</div><div class="fr-d">'+(fmtD(r.date)||'')+'</div></div><div></div><div></div><div class="fr-al" style="color:var(--red)">'+(r.error||'Sem resultado')+'</div><div></div><div></div><div></div></div>';
+    var k=orig+'-'+dest+'-'+r.date;
+    var stored=bests[k];
+    var isRec=stored&&r.price<=stored.price;
+    var isBest=r.price===mn&&!isRec;
+    var al=AL[r.airline]||r.airline;
+    var stops=r.stops===0?'Direto':r.stops+(r.stops===1?' escala':' escalas');
+    var rowCls='frow'+(isRec?' rec':isBest?' best':'');
+    var pvCls='fr-pv'+(isRec?' best-p':isBest?'':' high');
+    var bestCell=stored?'<div class="fr-best"><div class="fr-bl">Melhor</div><div class="fr-bv">'+fmtR(stored.price)+'</div></div>':'<div class="fr-best"><div class="fr-bv" style="color:var(--w20)">—</div></div>';
+    var tags=(isBest?'<span class="fr-badge best">Melhor</span>':'')+(isRec?'<span class="fr-badge rec">🏆</span>':'');
+    var voltaInfo=r.voltaDate?' <span style="color:var(--w40);font-size:9px">+ volta '+fmtD(r.voltaDate)+'</span>':'';
+    var href=r.voltaDate?'https://www.kayak.com.br/flights/GRU-CDG-CDG-GRU/'+r.date+'/'+r.voltaDate+'?sort=price_a':kURL(orig,dest,r.date);
+    return '<a class="'+rowCls+'" href="'+href+'" target="_blank" rel="noopener">'+
+      '<span class="fr-n">'+(i+1)+'</span>'+
+      '<div class="fr-date"><div class="fr-day">'+(DAYS[r.date]||r.date)+'</div><div class="fr-d">'+fmtD(r.date)+voltaInfo+'</div>'+tags+'</div>'+
+      '<div class="fr-dep"><div class="fr-t">'+r.dep+'</div><div class="fr-iata">'+orig+'</div></div>'+
+      '<div class="fr-arr"><div class="fr-t">'+r.arr+'</div><div class="fr-iata">'+(r.voltaDate?'CDG':dest)+'</div></div>'+
+      '<div class="fr-al">'+al+'</div>'+
+      '<div class="fr-details">'+r.airline+' · '+stops+' · '+r.dur+'</div>'+
+      bestCell+
+      '<div class="fr-price"><div class="'+pvCls+'">'+fmtR(r.price)+'</div><div class="fr-ps">'+(r.voltaDate?'ida+volta':'preço real')+'</div></div>'+
+      '<div class="fr-cta"><span class="fc">Ver →</span></div>'+
+      '</a>';
+  }).join('');
+}
+
+// ── RENDER STRATEGIES ───────────────────────────────────────────
+function renderStrategies(strats){
+  if(!strats||!strats.strategies) return;
+  var grid=$('strat-grid');
+  var empt=$('strat-empty');
+  if(empt)empt.style.display='none';
+  $('strat-note').textContent='Gerado por Claude · '+now8();
+
+  var keys=['budget','custoBeneficio','quaseLuxo'];
+  var labels=['01 · Budget','02 · Custo-Benefício','03 · Quase Luxo'];
+  var totalCls=['scp-total budget','scp-total','scp-total'];
+
+  // Render cards
+  var cardsHtml=keys.map(function(k,idx){
+    var s=strats.strategies[k];
+    if(!s)return '';
+    var total=s.totalGrand||0;
+    return '<div class="strat-card" id="sc-'+idx+'" onclick="toggleStrat('+idx+')">'
+      +'<div class="sc-head">'
+        +'<div class="sc-num">'+labels[idx]+'</div>'
+        +'<div class="sc-name">'+s.nome+'</div>'
+        +'<div class="sc-sub">'+s.subtitulo+'</div>'
+        +'<div class="sc-just">'+s.justificativa+'</div>'
+        +'<div class="sc-tags">'
+          +'<span class="sc-tag">✈ '+s.vooIda.airline+'</span>'
+          +'<span class="sc-tag">'+(s.vooVolta.tipo==='round_trip'?'RT CDG':'OJ NCE')+'→GRU</span>'
+          +'<span class="sc-tag">'+s.diasTotal+' dias</span>'
+        +'</div>'
+      +'</div>'
+      +'<div class="sc-price">'
+        +'<div class="scp-label">Total por pessoa</div>'
+        +'<div class="'+totalCls[idx]+'">'+fmtR(total)+'</div>'
+        +'<div class="scp-note">'+s.diasTotal+' dias · '+fmtD(s.chegada)+' → '+fmtD(s.partida)+'</div>'
+        +(s.economia?'<div class="scp-note" style="color:var(--grn)">'+s.economia+'</div>':'')
+        +'<div class="scp-rows">'
+          +'<div class="scp-row"><span class="scp-row-l">Voo ida</span><span class="scp-row-v live">'+fmtR(s.vooIda.price)+'</span></div>'
+          +'<div class="scp-row"><span class="scp-row-l">Voo volta</span><span class="scp-row-v live">'+fmtR(s.vooVolta.price)+'</span></div>'
+          +'<div class="scp-row"><span class="scp-row-l">Hotel Paris</span><span class="scp-row-v">'+fmtR(s.hotelParis.total)+'</span></div>'
+          +'<div class="scp-row"><span class="scp-row-l">Hotel Nice</span><span class="scp-row-v">'+fmtR(s.hotelNice.total)+'</span></div>'
+          +'<div class="scp-row"><span class="scp-row-l">Trens</span><span class="scp-row-v">'+fmtR(s.trens||0)+'</span></div>'
+          +'<div class="scp-row"><span class="scp-row-l">Alimentação</span><span class="scp-row-v">'+fmtR(s.alimentacao||0)+'</span></div>'
+        +'</div>'
+      +'</div>'
+      +'<div class="sc-foot">'
+        +'<a href="'+(s.kayakUrl||'#')+'" target="_blank" onclick="event.stopPropagation()" class="sc-cta">Buscar no Kayak →</a>'
+        +'<button class="sc-detail-btn" id="scdb-'+idx+'">Ver detalhes + roteiro ↓</button>'
+      +'</div>'
+    +'</div>';
+  }).join('');
+  grid.innerHTML=cardsHtml;
+
+  // Render detail panels
+  var panels=$('detail-panels');
+  panels.innerHTML=keys.map(function(k,idx){
+    var s=strats.strategies[k];
+    if(!s)return '';
+    var voltaTipo=s.vooVolta.tipo==='round_trip'?'Round-trip (CDG→GRU)':'Open Jaw (NCE→GRU)';
+    var roteiroHtml=(s.roteiro||[]).map(function(day){
+      var isCannes=day.toLowerCase().indexOf('24')>-1||day.toLowerCase().indexOf('cannes')>-1;
+      return '<div class="sdr-day"><span class="sdr-d">'+(day.split(':')[0]||'')+'</span><span class="sdr-e'+(isCannes?' cannes':'')+'">'+day.replace(/^[^:]+:\s*/,'')+'</span></div>';
+    }).join('');
+    return '<div class="strat-detail" id="sd-'+idx+'">'
+      +'<div class="sd-top"><span class="sd-title">'+labels[idx]+' — '+s.nome+' · Detalhamento</span>'
+        +'<button class="sd-close" onclick="toggleStrat('+idx+')">✕ Fechar</button></div>'
+      // Voo ida
+      +'<div class="sd-row">'
+        +'<div class="sd-info"><div class="sd-icon">✈</div><div class="sd-name">Voo ida · GRU → CDG</div>'
+          +'<div class="sd-meta live">'+(AL[s.vooIda.airline]||s.vooIda.airline)+' · '+s.vooIda.dep+'→'+s.vooIda.arr+' · '+(s.vooIda.stops===0?'Direto':s.vooIda.stops+' escala(s)')+' · '+s.vooIda.dur+'</div>'
+          +'<div class="sd-meta">'+fmtD(s.vooIda.date)+'</div>'
+        +'</div>'
+        +'<div class="sd-price"><div class="sd-val live">'+fmtR(s.vooIda.price)+'</div><div class="sd-note">Preço real</div></div>'
+        +'<div class="sd-link"><a href="'+kURL('GRU','CDG',s.vooIda.date)+'" target="_blank" class="sd-btn">Kayak →</a></div>'
+      +'</div>'
+      // Voo volta
+      +'<div class="sd-row">'
+        +'<div class="sd-info"><div class="sd-icon">✈</div><div class="sd-name">Voo volta · '+s.vooVolta.route+'</div>'
+          +'<div class="sd-meta live">'+(AL[s.vooVolta.airline]||s.vooVolta.airline)+' · '+s.vooVolta.dep+'→'+s.vooVolta.arr+'</div>'
+          +'<div class="sd-meta">'+voltaTipo+' · '+fmtD(s.vooVolta.date)+'</div>'
+        +'</div>'
+        +'<div class="sd-price"><div class="sd-val live">'+fmtR(s.vooVolta.price)+'</div><div class="sd-note">'+(s.vooVolta.trainCost?'+ trem R$'+s.vooVolta.trainCost:'')+'</div></div>'
+        +'<div class="sd-link"><a href="'+kURL(s.vooVolta.route.includes('NCE')?'NCE':'CDG','GRU',s.vooVolta.date)+'" target="_blank" class="sd-btn">Kayak →</a></div>'
+      +'</div>'
+      // Hotel Paris
+      +'<div class="sd-row">'
+        +'<div class="sd-info"><div class="sd-icon">🏨</div><div class="sd-name">Hotel Paris · '+s.hotelParis.noites+' noites</div>'
+          +'<div class="sd-meta">'+s.hotelParis.categoria+' · '+fmtR(s.hotelParis.ppn||Math.round(s.hotelParis.total/s.hotelParis.noites))+'/noite</div>'
+          +'<div class="sd-meta">'+fmtD(s.chegada)+' → '+fmtD(s.vooIda.date==='2026-06-17'?'2026-06-21':s.vooIda.date==='2026-06-16'?'2026-06-21':'2026-06-20')+'</div>'
+        +'</div>'
+        +'<div class="sd-price"><div class="sd-val">'+fmtR(s.hotelParis.total)+'</div><div class="sd-note">estimativa</div></div>'
+        +'<div class="sd-link"><a href="https://www.booking.com/searchresults.pt-br.html?ss=Paris%2C+France&checkin='+s.chegada+'&checkout=2026-06-21&group_adults=1&no_rooms=1" target="_blank" class="sd-btn">Booking →</a></div>'
+      +'</div>'
+      // Hotel Nice
+      +'<div class="sd-row">'
+        +'<div class="sd-info"><div class="sd-icon">🏨</div><div class="sd-name">Hotel Nice · '+s.hotelNice.noites+' noites</div>'
+          +'<div class="sd-meta">'+s.hotelNice.categoria+' · '+fmtR(s.hotelNice.ppn||Math.round(s.hotelNice.total/s.hotelNice.noites))+'/noite</div>'
+          +'<div class="sd-meta">Base para Cannes dia 24 · trem 28 min</div>'
+        +'</div>'
+        +'<div class="sd-price"><div class="sd-val">'+fmtR(s.hotelNice.total)+'</div><div class="sd-note">estimativa</div></div>'
+        +'<div class="sd-link"><a href="https://www.booking.com/searchresults.pt-br.html?ss=Nice%2C+France&checkin=2026-06-21&checkout='+s.partida+'&group_adults=1&no_rooms=1" target="_blank" class="sd-btn">Booking →</a></div>'
+      +'</div>'
+      // Trem Nice→Cannes
+      +'<div class="sd-row">'
+        +'<div class="sd-info"><div class="sd-icon">🚆</div><div class="sd-name">TER Nice → Cannes · Dia 24</div>'
+          +'<div class="sd-meta">28 min · ida e volta · sem reserva necessária</div>'
+        +'</div>'
+        +'<div class="sd-price"><div class="sd-val">R$ 35</div><div class="sd-note">€6 i+v</div></div>'
+        +'<div class="sd-link"><a href="https://www.sncf-connect.com/app/trips/search?originCode=FRNIC&destinationCode=FRCFR&outwardDate=2026-06-24T07%3A00%3A00&passengers=1" target="_blank" class="sd-btn">SNCF →</a></div>'
+      +'</div>'
+      // Roteiro
+      +(roteiroHtml?'<div class="sd-roteiro"><div class="sdr-title">Roteiro sugerido pelo Claude</div>'+roteiroHtml+'</div>':'')
+    +'</div>';
+  }).join('');
+}
+
+function toggleStrat(idx){
+  var panel=$('sd-'+idx), btn=$('scdb-'+idx), card=$('sc-'+idx);
+  var isOpen=panel&&panel.classList.contains('open');
+  [0,1,2].forEach(function(i){
+    var p=$('sd-'+i), b=$('scdb-'+i), c=$('sc-'+i);
+    if(p)p.classList.remove('open');
+    if(b)b.textContent='Ver detalhes + roteiro ↓';
+    if(c)c.classList.remove('active');
+  });
+  if(!isOpen&&panel){
+    panel.classList.add('open');
+    if(btn)btn.textContent='Fechar ↑';
+    if(card)card.classList.add('active');
+    setTimeout(function(){panel.scrollIntoView({behavior:'smooth',block:'nearest'});},60);
+  }
+}
+
+// ── ALERT ───────────────────────────────────────────────────────
+function showAlert(recs){
+  var drops=recs.filter(function(r){return r.entry.type==='record';});
+  if(!drops.length)return;
+  var best=drops[0];
+  $('al-title').textContent='🏆 Novo recorde — '+(AL[best.r.airline]||best.r.airline);
+  $('al-sub').textContent=best.entry.route+' · '+DAYS[best.r.date]+' '+fmtD(best.r.date);
+  $('al-price').textContent=fmtR(best.r.price);
+  $('al-btn').href=kURL(best.key.split('-')[0],best.key.split('-')[1],best.r.date);
+  $('alert').className='alert show';
+  setTimeout(function(){$('alert').className='alert';},10000);
+}
+
+// ── LOG ─────────────────────────────────────────────────────────
+function renderLog(){
+  var list=$('hlist'), empty=$('hempty');
+  var recs=evLog.filter(function(e){return e.type==='record';});
+  $('hist-sub').textContent=evLog.length+' leituras · '+recs.length+' recordes · salvo no browser';
+  if(!evLog.length){if(empty)empty.style.display='block';return;}
+  if(empty)empty.style.display='none';
+  list.innerHTML=evLog.map(function(h){
+    var isRec=h.type==='record';
+    var col=isRec?'var(--grn)':h.delta>0?'var(--red)':'var(--w20)';
+    var delta=h.delta!==null?(h.delta>0?'+':'')+fmtR(h.delta):'—';
+    return '<div class="hrow">'+
+      '<span class="ht">'+h.t+'</span><span class="hr">'+h.route+'</span>'+
+      '<span class="hd">'+h.date+'</span>'+
+      '<span class="hp">'+(h.prev!==null?fmtR(h.prev):'Primeira')+'</span>'+
+      '<span class="hn" style="color:'+col+'">'+fmtR(h.now)+'</span>'+
+      '<span class="hc">'+(h.comboTotal?fmtR(h.comboTotal):'—')+'</span>'+
+      '<span class="hdelta" style="color:'+col+'">'+delta+'</span>'+
+      '<span class="htype '+(isRec?'rec':'')+'">'+(isRec?'🏆 Recorde':h.type==='first'?'1ª leitura':'—')+'</span>'+
+    '</div>';
+  }).join('');
+}
+
+// ── MAIN FLOW ────────────────────────────────────────────────────
+async function runFull(){
+  var btn=$('rbtn'), mbtn=$('main-btn');
+  [btn,mbtn].forEach(function(b){if(b){b.disabled=true;b.classList.add('spin');}});
+  $('rlbl').textContent='Buscando...';
+  $('main-lbl').textContent='Buscando + analisando...';
+  setLive('busy','Buscando preços...');
+  $('plog').innerHTML='';
+  $('plog').classList.add('show');
+  setStep(1,'active','Buscando preços no Google Flights...');
+  setStep(2,'','Aguardando dados de voo');
+  setStep(3,'','Aguardando análise');
+  skel('tbl-rt',5);
+  skel('tbl-oj',4);
+
+  log('Iniciando busca de preços via SerpApi...');
+
+  // STEP 1: fetch flights
+  var flightData;
+  try{
+    var res=await fetch('/api/flights',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({idaDates:IDA_DATES,voltaDates:VOLTA_DATES})});
+    if(!res.ok){var e=await res.json().catch(function(){return{};});throw new Error(e.error||'HTTP '+res.status);}
+    flightData=await res.json();
+  }catch(e){
+    setStep(1,'error','Erro: '+e.message);
+    setLive('err','Erro na busca');
+    $('hf-status').textContent='✗ '+e.message;
+    log(e.message,'err');
+    [btn,mbtn].forEach(function(b){if(b){b.disabled=false;b.classList.remove('spin');}});
+    $('rlbl').textContent='Buscar voo';
+    $('main-lbl').textContent='Buscar voo + Analisar';
+    return;
+  }
+
+  // Process raw data
+  var rtRows=(flightData.results&&flightData.results.roundTrip)||[];
+  var ojRows=(flightData.results&&flightData.results.openJaw)||[];
+
+  rawFlights.rt=rtRows.filter(function(r){return r.price>0;});
+  rawFlights.oj=[];
+  ojRows.forEach(function(r){
+    if(r.offers&&r.offers.length) rawFlights.oj.push(r.offers[0]);
+  });
+
+  var recRt=checkBests(rawFlights.rt,'GRU','CDG');
+  var recOj=checkBests(rawFlights.oj,'NCE','GRU');
+  saveB();saveL();
+
+  renderRawTable('tbl-rt',rawFlights.rt,'GRU','CDG');
+  renderRawTable('tbl-oj',rawFlights.oj,'NCE','GRU');
+  renderLog();
+
+  var genuine=recRt.concat(recOj).filter(function(r){return r.entry.type==='record';});
+  if(genuine.length)showAlert(genuine);
+
+  log('Preços coletados: '+rawFlights.rt.length+' round-trips + '+rawFlights.oj.length+' open jaw','ok');
+  if(flightData.errors&&flightData.errors.length){
+    flightData.errors.forEach(function(e){ log('⚠ '+e,'err'); });
+  }
+  setStep(1,'done','✓ '+rawFlights.rt.length+' round-trips + '+rawFlights.oj.length+' open jaw');
+  setStep(2,'active','Claude analisando as melhores estratégias...');
+  setLive('busy','Claude analisando...');
+  $('hf-status').textContent='Claude montando as 3 melhores estratégias...';
+  log('Enviando dados para o Claude...');
+
+  // STEP 2: Claude analysis
+  var strategies;
+  try{
+    var payload={
+      flightData: {
+        roundTrip: rawFlights.rt,
+        openJawVolta: rawFlights.oj,
+        rawSummary: flightData.results&&flightData.results.rawSummary||{}
+      },
+      hotelEstimates: Object.keys(hotelData).length>0?hotelData:HOTEL_EST,
+    };
+    var cres=await fetch('/api/analyze',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+    if(!cres.ok){var ce=await cres.json().catch(function(){return{};});throw new Error(ce.error||'HTTP '+cres.status);}
+    strategies=await cres.json();
+  }catch(e){
+    setStep(2,'error','Erro: '+e.message);
+    log('Erro no Claude: '+e.message,'err');
+    setLive('err','Erro na análise');
+    $('hf-status').textContent='✗ Erro no Claude: '+e.message;
+    [btn,mbtn].forEach(function(b){if(b){b.disabled=false;b.classList.remove('spin');}});
+    $('rlbl').textContent='Buscar voo';
+    $('main-lbl').textContent='Buscar voo + Analisar';
+    return;
+  }
+
+  // STEP 3: render
+  saveS(strategies);
+  renderStrategies(strategies);
+  setStep(2,'done','✓ Análise concluída');
+  setStep(3,'done','✓ 3 estratégias geradas');
+  setLive('on','Pronto · '+now8());
+
+  if(strategies.analise){
+    log('Claude: '+strategies.analise,'ok');
+  }
+  log('✓ Concluído! 3 estratégias geradas.','ok');
+  $('hf-status').textContent='✓ 3 estratégias geradas pelo Claude · '+now8();
+
+  [btn,mbtn].forEach(function(b){if(b){b.disabled=false;b.classList.remove('spin');}});
+  $('rlbl').textContent='Buscar voo';
+  $('main-lbl').textContent='Buscar voo + Analisar';
+}
+
+// ── HOTEL SEARCH ─────────────────────────────────────────────────
+async function searchHotels(){
+  var hbtn=$('hbtn');
+  if(hbtn){hbtn.disabled=true;hbtn.textContent='Buscando...';}
+  log('Buscando preços reais de hotéis...');
+  try{
+    var searches=[
+      {key:'paris-hostel',city:'paris',checkin:'2026-06-17',checkout:'2026-06-21',category:'hostel'},
+      {key:'nice-hostel', city:'nice', checkin:'2026-06-21',checkout:'2026-06-28',category:'hostel'},
+      {key:'paris-3s',    city:'paris',checkin:'2026-06-16',checkout:'2026-06-21',category:'mid'},
+      {key:'nice-3s',     city:'nice', checkin:'2026-06-21',checkout:'2026-06-28',category:'mid'},
+      {key:'paris-4s',    city:'paris',checkin:'2026-06-14',checkout:'2026-06-20',category:'luxury'},
+      {key:'nice-4s',     city:'nice', checkin:'2026-06-20',checkout:'2026-06-26',category:'luxury'},
+    ];
+    var res=await fetch('/api/hotels',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({searches:searches})});
+    if(!res.ok)throw new Error('HTTP '+res.status);
+    var data=await res.json();
+    (data.results||[]).forEach(function(r){
+      if(r.hotels&&r.hotels.length){
+        var best=r.hotels[0];
+        hotelData[r.key]={name:best.name,ppn:best.pricePerNight||Math.round(best.price/best.nights),total:best.price,url:best.url};
+      }
+    });
+    saveH();
+    log('Hotéis atualizados com preços reais.','ok');
+    $('hf-status').textContent='Hotéis atualizados · '+now8();
+  }catch(e){
+    log('Erro hotéis: '+e.message,'err');
+  }
+  if(hbtn){hbtn.disabled=false;hbtn.textContent='🏨 Hotéis';}
+}
+
+// ── RESET ─────────────────────────────────────────────────────────
+function resetAll(){
+  if(!confirm('Apagar recordes, estratégias salvas e recomeçar?'))return;
+  bests={};evLog=[];hotelData={};savedStrats=null;
+  saveB();saveL();saveH();
+  try{localStorage.removeItem(LS_S);}catch(e){}
+  $('strat-grid').innerHTML='<div id="strat-empty" style="grid-column:1/-1;padding:48px 0;text-align:center"><div style="font-size:48px;margin-bottom:16px">⚡</div><div style="font-size:15px;font-weight:700;margin-bottom:8px">Claude vai montar as 3 melhores estratégias</div><div style="font-size:13px;color:var(--w40);font-family:var(--mo)">Clique em "Buscar + Analisar com Claude" acima</div></div>';
+  $('detail-panels').innerHTML='';
+  $('tbl-rt').innerHTML='<div class="no-flights">Clique em "Buscar + Analisar" para carregar.</div>';
+  $('tbl-oj').innerHTML='<div class="no-flights">Clique em "Buscar + Analisar" para carregar.</div>';
+  $('plog').innerHTML='';$('plog').classList.remove('show');
+  setStep(1,'','Aguardando');setStep(2,'','Aguardando passo 01');setStep(3,'','Aguardando análise');
+  renderLog();setLive('','Pronto');
+}
+
+// ── BOOT ──────────────────────────────────────────────────────────
+window.addEventListener('load', async function(){
+  renderLog();
+
+  // 1. Restore saved strategies from localStorage (instant)
+  if(savedStrats){
+    renderStrategies(savedStrats);
+    setStep(1,'done','Dados do cache local');
+    setStep(2,'done','Análise do cache local');
+    setStep(3,'done','✓ Estratégias restauradas');
+    $('strat-note').textContent='Restaurado do cache · Clique em "Buscar voo" para atualizar';
+  }
+
+  // 2. Load latest prices from Blob (free, no API cost)
+  setLive('busy','Carregando preços salvos...');
+  $('hf-status').textContent='Carregando preços do servidor...';
+  try {
+    var res = await fetch('/api/prices');
+    if (!res.ok) throw new Error('HTTP '+res.status);
+    var data = await res.json();
+
+    if (data.hasData && data.latest) {
+      var latest = data.latest;
+      var history = data.history || {};
+
+      // Check for new records vs localStorage
+      var rtRows = (latest.roundTrip||[]).filter(function(r){return r.price>0;});
+      var ojRows = (latest.openJaw||[]).filter(function(r){return r.price>0;});
+
+      var recRt = checkBests(rtRows,'GRU','CDG');
+      var recOj = checkBests(ojRows,'NCE','GRU');
+      saveB(); saveL();
+
+      rawFlights.rt = rtRows;
+      rawFlights.oj = ojRows;
+
+      renderRawTable('tbl-rt', rtRows, 'GRU','CDG');
+      renderRawTable('tbl-oj', ojRows, 'NCE','GRU');
+      renderLog();
+
+      var genuine = recRt.concat(recOj).filter(function(r){return r.entry.type==='record';});
+      if(genuine.length) showAlert(genuine);
+
+      var t = latest.fetchedAt ? new Date(latest.fetchedAt).toLocaleString('pt-BR') : '—';
+      setLive('on','Preços de '+t);
+      $('hf-status').textContent='✓ Preços carregados · Última busca: '+t;
+      $('fs1-txt').textContent='✓ Dados carregados do servidor ('+t+')';
+      setStep(1,'done','✓ Preços do servidor');
+
+      // If we have prices but no strategies, prompt Claude analysis
+      if(!savedStrats && (rtRows.length||ojRows.length)){
+        $('strat-note').textContent='Preços carregados — clique em "Buscar voo + Analisar" para gerar estratégias';
+        setStep(2,'','Clique em "Buscar voo + Analisar"');
+        setStep(3,'','Aguardando análise');
+      }
+    } else {
+      setLive('','Pronto para buscar');
+      $('hf-status').textContent='Nenhuma busca ainda. Clique em "Buscar voo" para iniciar.';
+    }
+  } catch(e) {
+    setLive('','Pronto para buscar');
+    $('hf-status').textContent='Clique em "Buscar voo" para buscar preços.';
+  }
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,8 @@
+{
+  "functions": {
+    "api/flights.js": { "maxDuration": 60 },
+    "api/analyze.js": { "maxDuration": 30 },
+    "api/hotels.js":  { "maxDuration": 30 },
+    "api/prices.js":  { "maxDuration": 10 }
+  }
+}
